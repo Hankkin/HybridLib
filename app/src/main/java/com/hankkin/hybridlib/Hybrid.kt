@@ -10,6 +10,7 @@ object Hybrid {
     var jsObject: BaseJSObject? = null
     var jsParse: BaseUriParse? = null
     var jsKey: String = DEFAULT_JS_KEY
+    val map = HashMap<String, Class<out BaseWidget>>()
 
     enum class LOAD_TYPE {
         URL,
@@ -28,8 +29,13 @@ object Hybrid {
         return this
     }
 
-    fun setParase(parse: BaseUriParse): Hybrid {
+    fun setInterceptor(parse: BaseUriParse): Hybrid {
         this.jsParse = parse
         return this
+    }
+
+    fun registWidget(key: String, clazz: Class<out BaseWidget>) {
+        if (map.containsKey(key)) return
+        map[key] = clazz
     }
 }

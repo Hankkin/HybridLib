@@ -1,6 +1,5 @@
 package com.hankkin.hybridlib
 
-import android.util.Log
 import android.webkit.WebView
 
 /**
@@ -9,13 +8,15 @@ import android.webkit.WebView
  */
 class GjUriParse : BaseUriParse() {
 
-    override fun dealActionInUi(webView: WebView) {
-        super.dealActionInUi(webView)
-    }
 
-    override fun parseUri(uri: String?) {
-        super.parseUri(uri)
-        Log.e("Hankkin",uri)
+    override fun parseUri(uri: String?, webView: WebView) {
+        super.parseUri(uri,webView)
+        var path = uri?.substringAfter(Hybrid.jsKey+"/")
+        val action = path?.substringBefore("?")
+        val params = path?.substringAfter("?params=")
+        val widget = action?.let { matchWidget(it) }
+        params?.let { widget?.parseParams(it) }
+        widget?.dealActionInUi(webView)
     }
 
 }

@@ -12,7 +12,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         Hybrid.init(Hybrid.LOAD_TYPE.JS_PROMTP)
-            .setParase(GjUriParse())
+            .setInterceptor(GjUriParse())
+            .registWidget("showtoast",ToastWidget::class.java)
+
+
         tv_androidcalljs.setOnClickListener {
             web.loadUrl("javascript:javacalljs()")
         }
@@ -29,8 +32,7 @@ class MainActivity : AppCompatActivity() {
                 if (Hybrid.mLoadType == Hybrid.LOAD_TYPE.JS_PROMTP) {
                     val parse = Hybrid.jsParse
                     parse?.apply {
-                        parseUri(url)
-                        view?.let {dealActionInUi(it) }
+                        view?.let { parseUri(message, it) }
                     }
                 }
 

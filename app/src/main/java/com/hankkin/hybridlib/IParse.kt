@@ -7,7 +7,8 @@ import android.webkit.WebView
  * @date 2019-05-16
  */
 interface IParse {
-     fun parseUri(uri: String?)
 
-     fun dealActionInUi(webView: WebView)
+     fun parseUri(uri: String?,webView: WebView)
+
+     fun matchWidget(key: String): BaseWidget?
 }
